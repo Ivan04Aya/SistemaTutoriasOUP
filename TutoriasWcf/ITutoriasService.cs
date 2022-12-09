@@ -15,6 +15,33 @@ namespace TutoriasWcf
     {
 
         [OperationContract]
-        Boolean registrarEstudiante(Estudiante estudiante);
+        Boolean RegistrarEstudiante(Estudiante estudiante);
+
+        [OperationContract]
+        Boolean IniciarSesion(string matricula, string contraseña);
+
+        [OperationContract]
+        Boolean RegistrarTurno(Turno turno);
+
+        [OperationContract]
+        Boolean CambiarEstadoTurno(string asunto, int estado);
+
+        [OperationContract]
+        Estudiante ConsultarEstudiante(string matricula);
+
+        [OperationContract]
+        Turno ConsultarTurno(string matricula);
+
+        [OperationContract]
+        List<Tutor> ConsultarListaTutores();
+
+        [OperationContract]
+        Horario ConsultarHorario(int idTutor);
+
+        [OperationContract]
+        Tutor ConsultarTutor(string correo);
+
+        [OperationContract]
+        Boolean RegristrarPuntaje(string asunto, int puntaje);
     }
 }

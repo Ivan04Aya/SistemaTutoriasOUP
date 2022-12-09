@@ -14,11 +14,12 @@ namespace TutoriasWcf.App_Data
     
     public partial class Horario
     {
+        public int idHorario { get; set; }
         public System.DateTime fechaTutoria { get; set; }
         public System.TimeSpan horaInicio { get; set; }
         public System.TimeSpan horaFin { get; set; }
         public int idTutor { get; set; }
-        public int idHorario { get; set; }
+        public string periodoEscolar { get; set; }
     
         public virtual Tutor Tutor { get; set; }
     }

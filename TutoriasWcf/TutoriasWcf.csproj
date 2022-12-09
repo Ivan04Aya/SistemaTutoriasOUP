@@ -83,16 +83,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Data\Calificacion.cs">
-      <DependentUpon>TutoriasModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Data\Estudiante.cs">
       <DependentUpon>TutoriasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="App_Data\Horario.cs">
-      <DependentUpon>TutoriasModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="App_Data\Notificacion.cs">
       <DependentUpon>TutoriasModel.tt</DependentUpon>
     </Compile>
     <Compile Include="App_Data\Turno.cs">

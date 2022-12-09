@@ -4,16 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TutoriasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Calificacion">
-          <Key>
-            <PropertyRef Name="idCalificacion" />
-          </Key>
-          <Property Name="comentarios" Type="varchar(max)" Nullable="false" />
-          <Property Name="puntaje" Type="int" Nullable="false" />
-          <Property Name="idCalificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idTurno" Type="int" Nullable="false" />
-        </EntityType>
+    <Schema Namespace="TutoriasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Estudiante">
           <Key>
             <PropertyRef Name="idEstudiante" />
@@ -31,46 +22,27 @@
           <Key>
             <PropertyRef Name="idHorario" />
           </Key>
+          <Property Name="idHorario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fechaTutoria" Type="date" Nullable="false" />
           <Property Name="horaInicio" Type="time" Precision="7" Nullable="false" />
           <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
           <Property Name="idTutor" Type="int" Nullable="false" />
-          <Property Name="idHorario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'TutoriasDB.dbo.Notificacion' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="Notificacion">
-          <Key>
-            <PropertyRef Name="idNotificacion" />
-            <PropertyRef Name="asunto" />
-            <PropertyRef Name="descripcion" />
-            <PropertyRef Name="estadoLectura" />
-            <PropertyRef Name="fechaEnvio" />
-            <PropertyRef Name="remitente" />
-            <PropertyRef Name="destinatario" />
-          </Key>
-          <Property Name="idNotificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="asunto" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="estadoLectura" Type="int" Nullable="false" />
-          <Property Name="fechaEnvio" Type="datetime" Nullable="false" />
-          <Property Name="remitente" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="destinatario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="periodoEscolar" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Turno">
           <Key>
             <PropertyRef Name="idTurno" />
           </Key>
+          <Property Name="idTurno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="asunto" Type="varchar(max)" Nullable="false" />
           <Property Name="nombreEstudiante" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="nombreTutor" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="estadoTurno" Type="int" Nullable="false" />
           <Property Name="fechaTurno" Type="date" Nullable="false" />
           <Property Name="horaInicio" Type="time" Precision="7" Nullable="false" />
-          <Property Name="horaFin" Type="time" Precision="7" Nullable="false" />
-          <Property Name="matriculaEstudiante" Type="varbinary" MaxLength="50" Nullable="false" />
+          <Property Name="matriculaEstudiante" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="tiempoTutoria" Type="int" />
-          <Property Name="asunto" Type="varchar(max)" Nullable="false" />
-          <Property Name="idTurno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="puntaje" Type="int" />
         </EntityType>
         <EntityType Name="Tutor">
           <Key>
@@ -81,18 +53,6 @@ advertencia 6002: La tabla o vista 'TutoriasDB.dbo.Notificacion' no tiene defini
           <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="idTutor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Calificacion_Turno">
-          <End Role="Turno" Type="Self.Turno" Multiplicity="1" />
-          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Turno">
-              <PropertyRef Name="idTurno" />
-            </Principal>
-            <Dependent Role="Calificacion">
-              <PropertyRef Name="idTurno" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Horario_Tutor">
           <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
           <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
@@ -106,129 +66,67 @@ advertencia 6002: La tabla o vista 'TutoriasDB.dbo.Notificacion' no tiene defini
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TutoriasDBModelStoreContainer">
-          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tutor" EntityType="Self.Tutor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Notificacion" EntityType="Self.Notificacion" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Notificacion].[idNotificacion] AS [idNotificacion], 
-    [Notificacion].[asunto] AS [asunto], 
-    [Notificacion].[descripcion] AS [descripcion], 
-    [Notificacion].[estadoLectura] AS [estadoLectura], 
-    [Notificacion].[fechaEnvio] AS [fechaEnvio], 
-    [Notificacion].[remitente] AS [remitente], 
-    [Notificacion].[destinatario] AS [destinatario]
-    FROM [dbo].[Notificacion] AS [Notificacion]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Calificacion_Turno" Association="Self.FK_Calificacion_Turno">
-            <End Role="Turno" EntitySet="Turno" />
-            <End Role="Calificacion" EntitySet="Calificacion" />
-          </AssociationSet>
           <AssociationSet Name="FK_Horario_Tutor" Association="Self.FK_Horario_Tutor">
             <End Role="Tutor" EntitySet="Tutor" />
             <End Role="Horario" EntitySet="Horario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TutoriasDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Calificacion">
-          <Key>
-            <PropertyRef Name="idCalificacion" />
-          </Key>
-          <Property Name="comentarios" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="puntaje" Type="Int32" Nullable="false" />
-          <Property Name="idCalificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idTurno" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Turno" Relationship="Self.FK_Calificacion_Turno" FromRole="Calificacion" ToRole="Turno" />
-        </EntityType>
+        <EntityContainer Name="TutoriasDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Estudiantes" EntityType="TutoriasDBModel.Estudiante" />
+          <EntitySet Name="Horarios" EntityType="TutoriasDBModel.Horario" />
+          <EntitySet Name="Tutors" EntityType="TutoriasDBModel.Tutor" />
+          <AssociationSet Name="FK_Horario_Tutor" Association="TutoriasDBModel.FK_Horario_Tutor">
+            <End Role="Tutor" EntitySet="Tutors" />
+            <End Role="Horario" EntitySet="Horarios" />
+          </AssociationSet>
+          <EntitySet Name="Turnoes" EntityType="TutoriasDBModel.Turno" />
+        </EntityContainer>
         <EntityType Name="Estudiante">
           <Key>
             <PropertyRef Name="idEstudiante" />
           </Key>
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="apellidos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="matricula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombreTutor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="carrera" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="matricula" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="contrasena" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombreTutor" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="carrera" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="idEstudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Horario">
           <Key>
             <PropertyRef Name="idHorario" />
           </Key>
+          <Property Name="idHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fechaTutoria" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="horaInicio" Type="Time" Nullable="false" Precision="7" />
           <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
           <Property Name="idTutor" Type="Int32" Nullable="false" />
-          <Property Name="idHorario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Tutor" Relationship="Self.FK_Horario_Tutor" FromRole="Horario" ToRole="Tutor" />
-        </EntityType>
-        <EntityType Name="Turno">
-          <Key>
-            <PropertyRef Name="idTurno" />
-          </Key>
-          <Property Name="nombreEstudiante" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombreTutor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="estadoTurno" Type="Int32" Nullable="false" />
-          <Property Name="fechaTurno" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="horaInicio" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="horaFin" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="matriculaEstudiante" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
-          <Property Name="tiempoTutoria" Type="Int32" />
-          <Property Name="asunto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="idTurno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Calificacions" Relationship="Self.FK_Calificacion_Turno" FromRole="Turno" ToRole="Calificacion" />
+          <Property Name="periodoEscolar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tutor" Relationship="TutoriasDBModel.FK_Horario_Tutor" FromRole="Horario" ToRole="Tutor" />
         </EntityType>
         <EntityType Name="Tutor">
           <Key>
             <PropertyRef Name="idTutor" />
           </Key>
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="apellidos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idTutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Horarios" Relationship="Self.FK_Horario_Tutor" FromRole="Tutor" ToRole="Horario" />
+          <NavigationProperty Name="Horarios" Relationship="TutoriasDBModel.FK_Horario_Tutor" FromRole="Tutor" ToRole="Horario" />
         </EntityType>
-        <EntityType Name="Notificacion">
-          <Key>
-            <PropertyRef Name="idNotificacion" />
-            <PropertyRef Name="asunto" />
-            <PropertyRef Name="descripcion" />
-            <PropertyRef Name="estadoLectura" />
-            <PropertyRef Name="fechaEnvio" />
-            <PropertyRef Name="remitente" />
-            <PropertyRef Name="destinatario" />
-          </Key>
-          <Property Name="idNotificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="asunto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="estadoLectura" Type="Int32" Nullable="false" />
-          <Property Name="fechaEnvio" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="remitente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="destinatario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Calificacion_Turno">
-          <End Role="Turno" Type="Self.Turno" Multiplicity="1" />
-          <End Role="Calificacion" Type="Self.Calificacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Turno">
-              <PropertyRef Name="idTurno" />
-            </Principal>
-            <Dependent Role="Calificacion">
-              <PropertyRef Name="idTurno" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Horario_Tutor">
-          <End Role="Tutor" Type="Self.Tutor" Multiplicity="1" />
-          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+          <End Type="TutoriasDBModel.Tutor" Role="Tutor" Multiplicity="1" />
+          <End Type="TutoriasDBModel.Horario" Role="Horario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tutor">
               <PropertyRef Name="idTutor" />
@@ -238,99 +136,76 @@ advertencia 6002: La tabla o vista 'TutoriasDB.dbo.Notificacion' no tiene defini
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TutoriasDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Calificacions" EntityType="Self.Calificacion" />
-          <EntitySet Name="Estudiantes" EntityType="Self.Estudiante" />
-          <EntitySet Name="Horarios" EntityType="Self.Horario" />
-          <EntitySet Name="Turnoes" EntityType="Self.Turno" />
-          <EntitySet Name="Tutors" EntityType="Self.Tutor" />
-          <EntitySet Name="Notificacions" EntityType="Self.Notificacion" />
-          <AssociationSet Name="FK_Calificacion_Turno" Association="Self.FK_Calificacion_Turno">
-            <End Role="Turno" EntitySet="Turnoes" />
-            <End Role="Calificacion" EntitySet="Calificacions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Horario_Tutor" Association="Self.FK_Horario_Tutor">
-            <End Role="Tutor" EntitySet="Tutors" />
-            <End Role="Horario" EntitySet="Horarios" />
-          </AssociationSet>
-        </EntityContainer>
+        <EntityType Name="Turno">
+          <Key>
+            <PropertyRef Name="idTurno" />
+          </Key>
+          <Property Name="idTurno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="asunto" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nombreEstudiante" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombreTutor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estadoTurno" Type="Int32" Nullable="false" />
+          <Property Name="fechaTurno" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="horaInicio" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="matriculaEstudiante" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tiempoTutoria" Type="Int32" />
+          <Property Name="puntaje" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TutoriasDBModelStoreContainer" CdmEntityContainer="TutoriasDBEntities">
-          <EntitySetMapping Name="Calificacions">
-            <EntityTypeMapping TypeName="TutoriasDBModel.Calificacion">
-              <MappingFragment StoreEntitySet="Calificacion">
-                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
-                <ScalarProperty Name="puntaje" ColumnName="puntaje" />
-                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
-                <ScalarProperty Name="idTurno" ColumnName="idTurno" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Estudiantes">
             <EntityTypeMapping TypeName="TutoriasDBModel.Estudiante">
               <MappingFragment StoreEntitySet="Estudiante">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="matricula" ColumnName="matricula" />
-                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="nombreTutor" ColumnName="nombreTutor" />
-                <ScalarProperty Name="carrera" ColumnName="carrera" />
                 <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
+                <ScalarProperty Name="carrera" ColumnName="carrera" />
+                <ScalarProperty Name="nombreTutor" ColumnName="nombreTutor" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="matricula" ColumnName="matricula" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Horarios">
             <EntityTypeMapping TypeName="TutoriasDBModel.Horario">
               <MappingFragment StoreEntitySet="Horario">
-                <ScalarProperty Name="fechaTutoria" ColumnName="fechaTutoria" />
-                <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
-                <ScalarProperty Name="horaFin" ColumnName="horaFin" />
+                <ScalarProperty Name="periodoEscolar" ColumnName="periodoEscolar" />
                 <ScalarProperty Name="idTutor" ColumnName="idTutor" />
-                <ScalarProperty Name="idHorario" ColumnName="idHorario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Turnoes">
-            <EntityTypeMapping TypeName="TutoriasDBModel.Turno">
-              <MappingFragment StoreEntitySet="Turno">
-                <ScalarProperty Name="nombreEstudiante" ColumnName="nombreEstudiante" />
-                <ScalarProperty Name="nombreTutor" ColumnName="nombreTutor" />
-                <ScalarProperty Name="estadoTurno" ColumnName="estadoTurno" />
-                <ScalarProperty Name="fechaTurno" ColumnName="fechaTurno" />
-                <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
                 <ScalarProperty Name="horaFin" ColumnName="horaFin" />
-                <ScalarProperty Name="matriculaEstudiante" ColumnName="matriculaEstudiante" />
-                <ScalarProperty Name="tiempoTutoria" ColumnName="tiempoTutoria" />
-                <ScalarProperty Name="asunto" ColumnName="asunto" />
-                <ScalarProperty Name="idTurno" ColumnName="idTurno" />
+                <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
+                <ScalarProperty Name="fechaTutoria" ColumnName="fechaTutoria" />
+                <ScalarProperty Name="idHorario" ColumnName="idHorario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tutors">
             <EntityTypeMapping TypeName="TutoriasDBModel.Tutor">
               <MappingFragment StoreEntitySet="Tutor">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="idTutor" ColumnName="idTutor" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Notificacions">
-            <EntityTypeMapping TypeName="TutoriasDBModel.Notificacion">
-              <MappingFragment StoreEntitySet="Notificacion">
-                <ScalarProperty Name="idNotificacion" ColumnName="idNotificacion" />
+          <EntitySetMapping Name="Turnoes">
+            <EntityTypeMapping TypeName="TutoriasDBModel.Turno">
+              <MappingFragment StoreEntitySet="Turno">
+                <ScalarProperty Name="puntaje" ColumnName="puntaje" />
+                <ScalarProperty Name="tiempoTutoria" ColumnName="tiempoTutoria" />
+                <ScalarProperty Name="matriculaEstudiante" ColumnName="matriculaEstudiante" />
+                <ScalarProperty Name="horaInicio" ColumnName="horaInicio" />
+                <ScalarProperty Name="fechaTurno" ColumnName="fechaTurno" />
+                <ScalarProperty Name="estadoTurno" ColumnName="estadoTurno" />
+                <ScalarProperty Name="nombreTutor" ColumnName="nombreTutor" />
+                <ScalarProperty Name="nombreEstudiante" ColumnName="nombreEstudiante" />
                 <ScalarProperty Name="asunto" ColumnName="asunto" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="estadoLectura" ColumnName="estadoLectura" />
-                <ScalarProperty Name="fechaEnvio" ColumnName="fechaEnvio" />
-                <ScalarProperty Name="remitente" ColumnName="remitente" />
-                <ScalarProperty Name="destinatario" ColumnName="destinatario" />
+                <ScalarProperty Name="idTurno" ColumnName="idTurno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

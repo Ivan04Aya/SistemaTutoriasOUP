@@ -14,24 +14,15 @@ namespace TutoriasWcf.App_Data
     
     public partial class Turno
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Turno()
-        {
-            this.Calificacions = new HashSet<Calificacion>();
-        }
-    
+        public int idTurno { get; set; }
+        public string asunto { get; set; }
         public string nombreEstudiante { get; set; }
         public string nombreTutor { get; set; }
         public int estadoTurno { get; set; }
         public System.DateTime fechaTurno { get; set; }
         public System.TimeSpan horaInicio { get; set; }
-        public System.TimeSpan horaFin { get; set; }
-        public byte[] matriculaEstudiante { get; set; }
+        public string matriculaEstudiante { get; set; }
         public Nullable<int> tiempoTutoria { get; set; }
-        public string asunto { get; set; }
-        public int idTurno { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Calificacion> Calificacions { get; set; }
+        public Nullable<int> puntaje { get; set; }
     }
 }

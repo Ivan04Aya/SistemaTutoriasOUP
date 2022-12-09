@@ -25,11 +25,9 @@ namespace TutoriasWcf.App_Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Calificacion> Calificacions { get; set; }
         public virtual DbSet<Estudiante> Estudiantes { get; set; }
         public virtual DbSet<Horario> Horarios { get; set; }
-        public virtual DbSet<Turno> Turnoes { get; set; }
         public virtual DbSet<Tutor> Tutors { get; set; }
-        public virtual DbSet<Notificacion> Notificacions { get; set; }
+        public virtual DbSet<Turno> Turnoes { get; set; }
     }
 }

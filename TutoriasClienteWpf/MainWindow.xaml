@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TutoriasClienteWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="Inicio de Sesion" Height="450" Width="800">
+    <Grid HorizontalAlignment="Center" Width="800" Margin="0,0,0,-6">
+        <Button Content="Registrar Estudiante" HorizontalAlignment="Left" Margin="160,265,0,0" VerticalAlignment="Top" Click="BtnRegistrarUsuario" Height="19" Width="125" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF0010FF"/>
+        <Label Content="Matricula" HorizontalAlignment="Left" Margin="160,112,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBox x:Name="tbMatricula" HorizontalAlignment="Left" Margin="160,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="417"/>
+        <PasswordBox x:Name="pbContrasena" HorizontalAlignment="Left" Margin="160,242,0,0" VerticalAlignment="Top" Width="417"/>
+        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="160,0,0,0" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+        <Label Content="Tutorias UV" HorizontalAlignment="Left" Margin="160,28,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Unispace"/>
+        <Button Content="Inicio de sesión" HorizontalAlignment="Left" Margin="533,327,0,0" VerticalAlignment="Top" Height="52" Width="143" Background="#FF8BDA76" Click="BtnIniciarSesion" FontSize="18"/>
+        <Label x:Name="lbMatricula" Content="Label" HorizontalAlignment="Left" Margin="331,118,0,0" VerticalAlignment="Top" Foreground="Red" FontWeight="Bold"/>
+        <Label x:Name="lbPassword" Content="Label" HorizontalAlignment="Left" Margin="333,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.471,1.333" FontWeight="Bold" Foreground="Red"/>
     </Grid>
 </Window>
